@@ -10,18 +10,19 @@ import io.altar.jseproject.textinterface.TextInterface;
 public class Test {
 
 	public static void main(String[] args) {
-		/*
-		Product p1 = new Product("Mil Folhas", "Ana", 10.0f);
-		Product p2 = new Product("Mil Folhas", "Ana", 10.0f);
-		Product p3 = new Product("Mil Folhas", "Ana", 10.0f);
-		Product p4 = new Product("Mil Folhas", "Ana", 10.0f);		
-		Shelf s1 = new Shelf("My Shelf");
-		s1.addProducts(p1, p2, p3, p4);
-		s1.removeProducts(p1, p2);
-		s1.printInfo();
-		s1.printBooks();
-		*/
 		
+		Product p1 = new Product("Mil Folhas", 6, 10.00f, 10.0f);
+		Product p2 = new Product("Mil Folhas", 6, 10.00f, 10.0f);
+				
+		Shelf s1 = new Shelf("My Shelf", 1, 15.00f);
+		Shelf s2 = new Shelf("My Shelf", 1, 15.00f);
+		Shelf s3 = new Shelf("My Shelf", 1, 15.00f);
+		Shelf s4 = new Shelf("My Shelf", 1, 15.00f);
+		
+		
+		p1.addToShelves(s1, s2, s3);
+		p1.removeFromShelves(s1);
+		p1.printInfo();
 		
 		
 		TextInterface ti = new TextInterface();		

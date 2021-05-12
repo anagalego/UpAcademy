@@ -24,7 +24,6 @@ public class TextInterface {
 	public void end() { System.out.println("Come again!"); }
 	
 	public String getText() { return sc.nextLine(); }
-	
 	public int getInt() {
 		do {
 			if(sc.hasNextInt()) return sc.nextInt();
@@ -33,7 +32,6 @@ public class TextInterface {
 				sc.nextLine(); }
 		} while (true);
 	}
-	
 	public float getFloat() {
 		do {
 			if(sc.hasNextFloat()) return sc.nextFloat();
@@ -61,8 +59,8 @@ public class TextInterface {
 			yesNo();
 			return 1;
 		case 2:
-			createBookMenu();
-			createBook();
+			createProductMenu();
+			createProduct();
 			goBack();
 			yesNo();
 			return 1;
@@ -72,8 +70,9 @@ public class TextInterface {
 			yesNo();
 			return 3;
 		case 4:
-			listBooks();
+			listProducts();
 			goBack();
+			yesNo();
 			boolean b = yesNo();
 			System.out.println(b);
 			return 4;
@@ -84,50 +83,71 @@ public class TextInterface {
 		}
 	}
 	
-	public void createShelfMenu() { System.out.println("\nPlease type a name for your Shelf:"); }	
+	public void createShelfMenu() { System.out.println("\nPlease type a name for your SHELF:"); }	
 	public void createShelf() {
 		String name = getText();
 		while(name.length() == 0) {
 			if(name == null) System.out.println("\nLet's try again:");
 			name = getText();
 		}
-		Shelf s = new Shelf(name);
+		System.out.println("Your SHELF name is " + name + ".\nType its capacity:");
+		int capacity = getInt();
+		while(capacity == 0) {
+			System.out.println("Let's try again:");
+			capacity = getInt();
+		}
+		System.out.println("Your SHELF capacity is " + capacity + ".\nType its daily price(€):");
+		float price = getFloat();
+		while(price == 0) {
+			System.out.println("Let's try again:");
+			price = getFloat();
+		}
+		System.out.println("Your SHELF price is " + price + ".");
+		Shelf s = new Shelf(name, capacity, price);
 		addShelf(s);
-		System.out.println("\nYour Shelf " + name + " was created.");
+		System.out.println("\nYour SHELF " + name + " was added successfully.");
+		printShelfHead();
 		s.printInfo();
 	}
 	
-	public void createBookMenu() { System.out.println("\nPlease type a title for your Book:"); }	
-	public void createBook() {
-		String title = getText();
-		while(title.length() == 0) {
-			if(title == null) System.out.println("\nLet's try again:");
-			title = getText();
+	public void createProductMenu() { System.out.println("\nPlease type a name for your PRODUCT:"); }	
+	public void createProduct() {
+		String name = getText();
+		while(name.length() == 0) {
+			if(name == null) System.out.println("\nLet's try again:");
+			name = getText();
 		}
-		System.out.println("Your book title is " + title + ".\nType the name of its author:");
-		String author = getText();
-		while(author.length() == 0) {
-			if(author == null) System.out.println("\nLet's try again:");
-			author = getText();
+		System.out.println("Your PRODUCT name is " + name + ".\nType its TAX(%):");
+		float tax = getFloat();
+		while(tax == 0) {
+			System.out.println("Let's try again:");
+			tax = getFloat();
 		}
-		System.out.println("Your book author is " + author + "\nType its price:");
+		System.out.println("Your PRODUCT author is " + tax + "\nType its price(€):");
 		float pvp = getFloat();
 		while(pvp == 0) {
 			System.out.println("Let's try again:");
 			pvp = getFloat();
 		}
-		System.out.println("Your book price is " + pvp + ".");	
-		Product p = new Product(title, author, pvp);
+		System.out.println("Your PRODUCT price is " + pvp + ".\nType its discount(%):");
+		float discount = getFloat();
+		while(discount == 0) {
+			System.out.println("Let's try again:");
+			discount = getFloat();
+		}
+		System.out.println("Your PRODUCT discount is " + discount + ".");
+		Product p = new Product(name, tax, pvp, discount);
 		addBook(p);
-		System.out.println("\nYour Book " + title + " was created.");
+		System.out.println("\nYour PRODUCT " + name + " was added successfully.");
+		printProductHead();
 		p.printInfo();
 	}
 	
-	public void listShelves() { System.out.println("\nYour Shelves:"); printShelves(); }	
+	public void listShelves() { printShelfHead(); printShelves(); }	
 	public static void printShelves() { shelves.forEach(s -> s.printInfo()); }
 	
-	public void listBooks() { System.out.println("\nYour Books:"); printBooks(); }
-	public static void printBooks() { products.forEach(s -> s.printInfo()); }
+	public void listProducts() { printProductHead(); printProducts(); }
+	public static void printProducts() { products.forEach(s -> s.printInfo()); }
 		
 	public static void goBack() { System.out.println("Do you want to go back?\n(Y/N)"); }	
 	public boolean yesNo() {
@@ -144,6 +164,13 @@ public class TextInterface {
 		}
 		return b;
 	}
+	
+	public static void printProductHead() { System.out.println("PRODUCT:ID \t NAME \t PRICE \t TAX \t DISCOUNT \t SHELVES"); }
+	public static void printShelfHead() { System.out.println("SHELF:ID \t NAME \t CAPACITY \t DAILY PRICE"); }
+
+	
+	
+	
 	
 	
 }
