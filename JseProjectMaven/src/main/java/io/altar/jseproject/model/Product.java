@@ -31,6 +31,11 @@ public class Product extends Entity {
 			ShelfRepository.getInstance().getMap().get(id).setProduct(null);
 		}
 	}
+	public void printShelves() {
+		for(long id : this.shelfIds) {
+			ShelfRepository.getInstance().getMap().get(id).printInfo();
+		}
+	}
 	
 	public float getTax() { return tax; }
 	public void setTax(float tax) { this.tax = tax; }
@@ -40,15 +45,16 @@ public class Product extends Entity {
 	
 	public void printInfo() {
 		super.printInfo();
-		System.out.print(tax + "%\t" + discount + "%\t" + shelfIds.size() + "\n");
+		System.out.print("€\t" + tax + "%\t" + discount + "%\t" + shelfIds.size());
 		if(!shelfIds.isEmpty()) {
-			printShelves();
+			System.out.println("Available in:");
+			shelfIds.forEach(s -> ShelfRepository.getInstance().getEntity(s).printInfo());
 		}
 	}
 	
-	public void printShelves() {
-		System.out.println("\nPRODUCT " + this.getId() + "in SHELF/S:");
-		shelfIds.forEach(s -> ShelfRepository.getInstance().getEntity(s).printInfo());
+	public void shelfList() {
+		super.printInfo();
+		System.out.print("€\t" + tax + "%\t" + discount);
 	}
 
 }

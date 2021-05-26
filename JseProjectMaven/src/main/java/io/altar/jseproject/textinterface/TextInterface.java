@@ -1,13 +1,20 @@
 package io.altar.jseproject.textinterface;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import io.altar.jseproject.model.Product;
+import io.altar.jseproject.model.Shelf;
+import io.altar.jseproject.repositories.ProductRepository;
+import io.altar.jseproject.repositories.ShelfRepository;
 
 public class TextInterface {
 	
-	
-	
-	
-	
-	/*
 	ScannerUtils sc = new ScannerUtils();
 	ShelfRepository sr = ShelfRepository.getInstance();
 	ProductRepository pr = ProductRepository.getInstance();
@@ -316,6 +323,13 @@ public class TextInterface {
 				long id;
 				do {
 					id = sc.getLong(pr.listed());
+					/*
+					String[] shelvesIds = sc.getText().split(" ");
+					newShelves = Arrays.stream(shelvesIds)
+							.filter(v -> v.chars().allMatch(Character::isDigit))
+							.map(Long::parseLong)
+							.toArray(long[]::new);
+					*/
 					p.addToShelves(id);
 					
 				} while(id == 0);
@@ -327,12 +341,12 @@ public class TextInterface {
 		} while(attr != 5);
 		System.out.println("\nPRODUCT " + option + " was edited successfully.");
 	}
-
+	
 	public void printProducts() {
 		System.out.println("ID \tNAME \tPRICE \tTAX \tDISCT \tSHELVES");
 		pr.getMap().forEach((k,v) -> v.printInfo());
 	}
-	*/
+	
 	
 	
 	
