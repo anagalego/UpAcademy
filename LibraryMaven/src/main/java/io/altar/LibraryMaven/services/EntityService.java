@@ -30,17 +30,14 @@ public abstract class EntityService<T extends EntityRepository<E>, E extends Ent
 		repository.removeEntity(id);
 	}
 	
-	protected abstract String getAllEntities();
 	public List<E> getAll() {
 		return repository.getAll();
 	}
 	
-	protected abstract String getAllEntitiesIds();
 	public List<Long> getAllIds() {
 		return repository.getAllIds();
 	}
 	
-	protected abstract String getEntitiesCount();
 	public long size() {
 		return repository.size();
 	}

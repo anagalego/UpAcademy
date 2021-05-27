@@ -1,9 +1,9 @@
 package io.altar.LibraryMaven.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -26,20 +26,20 @@ public class Product extends Entity_ {
 
 	
 	//@Column(precision = 10, scale = 0, columnDefinition = "NUMBER (10)")
-	private List<Long> shelfIds;
+	private ArrayList<Long> shelfIds = new ArrayList<>();
 	//@Column(precision = 10, scale = 0, columnDefinition = "NUMBER (10)")
 	private int tax;
 	//@Column(precision = 10, scale = 0, columnDefinition = "NUMBER (10)")	
 	private float discount;
-	
+	private float finalPrice;
 	
 	public Product() {}
 	 
 	
-	public List<Long> getShelfIds() {
+	public ArrayList<Long> getShelfIds() {
 		return shelfIds;
 	}
-	public void setShelfId(List<Long> shelfIds) {
+	public void setShelfId(ArrayList<Long> shelfIds) {
 		this.shelfIds = shelfIds;
 	}
 
@@ -55,6 +55,16 @@ public class Product extends Entity_ {
 	}
 	public void setDiscount(float discount) {
 		this.discount = discount;
+	}
+	
+	public float getFinalPrice() {
+		return finalPrice;
+	}
+	
+	public void setFinalPrice() {
+		float tempPrice = tax*super.getPrice()/100 + super.getPrice();
+		float tempDiscount = tempPrice * discount;
+		this.finalPrice = tempPrice - tempDiscount;
 	}
 
 	

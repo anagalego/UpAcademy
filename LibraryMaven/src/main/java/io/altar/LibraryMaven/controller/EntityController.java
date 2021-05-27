@@ -59,19 +59,20 @@ public abstract class EntityController<S extends EntityService<R,E>, R extends E
 	}
 
 	@PUT
-	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public E update(@PathParam("id") long id) {
-		E entity = service.getEntity(id);
+	public E update(E entity) {
 		return service.editEntity(entity);
 	}
 
 	@DELETE
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response delete(@PathParam("id") long id) {
+	public String delete(@PathParam("id") long id) {
+		E entity = service.getEntity(id);
+		String response = "Produto " + id + " eliminado com sucesso!";
+		if(entity==null) response = "Produto " + id + " não existe.";
 		service.removeEntity(id);
-		return Response.ok().build();
+		return response;
 	}
 }
