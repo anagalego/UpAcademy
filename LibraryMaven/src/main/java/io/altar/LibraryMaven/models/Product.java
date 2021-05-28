@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = Product.GET_PRODUCTS, query = "SELECT p FROM Product p"),
 	@NamedQuery(name = Product.GET_PRODUCTS_IDS, query = "SELECT p.id FROM Product p"),	
 	@NamedQuery(name = Product.GET_PRODUCT_COUNT, query = "SELECT COUNT(p.id) FROM Product p"),
+
 })
 public class Product extends Entity_ {
 
@@ -62,9 +63,8 @@ public class Product extends Entity_ {
 	}
 	
 	public void setFinalPrice() {
-		float tempPrice = tax*super.getPrice()/100 + super.getPrice();
-		float tempDiscount = tempPrice * discount;
-		this.finalPrice = tempPrice - tempDiscount;
+		this.finalPrice = (tax*getPrice()/100+getPrice())
+				-(tax*getPrice()/100+getPrice())*discount/100;
 	}
 
 	

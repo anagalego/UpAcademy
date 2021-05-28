@@ -30,6 +30,12 @@ public abstract class EntityService<T extends EntityRepository<E>, E extends Ent
 		repository.removeEntity(id);
 	}
 	
+	public void clear() {
+		for(E entity : repository.getAll()) {
+			repository.removeEntity(entity.getId());
+		}
+	}
+	
 	public List<E> getAll() {
 		return repository.getAll();
 	}

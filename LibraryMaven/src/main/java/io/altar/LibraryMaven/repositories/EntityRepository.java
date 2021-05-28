@@ -32,11 +32,14 @@ public abstract class EntityRepository<T extends Entity_> {
 			entityManager.remove(entity);
 		}
 	}
+	
 
 	protected abstract String getAllEntities();
 	public List<T> getAll() {
 		return entityManager.createNamedQuery(getAllEntities(), getEntityClass()).getResultList();
 	}
+	
+	
 	
 	protected abstract String getAllEntitiesIds();
 	public List<Long> getAllIds() {

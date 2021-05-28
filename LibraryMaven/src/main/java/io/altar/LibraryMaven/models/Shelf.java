@@ -20,12 +20,9 @@ public class Shelf extends Entity_ {
 
 	private static final long serialVersionUID = 1L;
 
-	
-//	@Column(precision = 10, scale = 0, columnDefinition = "NUMBER (10)")	
-	private int capacity;
-//	@Column(precision = 10, scale = 0, columnDefinition = "NUMBER (10)")		
 	@ManyToOne
 	private Product product;
+	private int capacity;
 
 	
 	public Shelf() {}
