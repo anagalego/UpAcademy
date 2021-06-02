@@ -14,11 +14,8 @@ public abstract class Entity_ implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(precision = 10, scale = 0, columnDefinition = "NUMBER (10)")
 	private long id;
-//	@Column(precision = 10, scale = 0, columnDefinition = "VARCHAR (10)")
 	private String name;
-//	@Column(precision = 10, scale = 0, columnDefinition = "NUMBER (10)")
 	private float price;
 
 	

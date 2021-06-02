@@ -48,11 +48,15 @@ public abstract class EntityService<T extends EntityRepository<E>, E extends Ent
 		return repository.size();
 	}
 
-	
-	
-	
-	
-	
+	public String delete(long id) throws NullPointerException {
+		try {
+			E entity = repository.getEntity(id);
+			repository.removeEntity(id);
+			return entity.getClass().getSimpleName() + " " + id + " eliminado com sucesso!";
+		} catch(NullPointerException e) {
+			return id + " não existe. Escolha entre: " + getAllIds();
+		}
+	}
 	
 	
 }

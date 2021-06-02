@@ -39,8 +39,6 @@ public abstract class EntityRepository<T extends Entity_> {
 		return entityManager.createNamedQuery(getAllEntities(), getEntityClass()).getResultList();
 	}
 	
-	
-	
 	protected abstract String getAllEntitiesIds();
 	public List<Long> getAllIds() {
 		return entityManager.createNamedQuery(getAllEntitiesIds(), Long.class).getResultList();

@@ -1,24 +1,26 @@
 package io.altar.LibraryMaven.controller;
 
+import java.util.List;
+
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.enterprise.context.RequestScoped;
 
 import io.altar.LibraryMaven.models.Product;
-import io.altar.LibraryMaven.models.Shelf;
 import io.altar.LibraryMaven.repositories.ProductRepository;
-import io.altar.LibraryMaven.repositories.ShelfRepository;
 import io.altar.LibraryMaven.services.ProductService;
-import io.altar.LibraryMaven.services.ShelfService;
 
 @RequestScoped
 @Path("products")
 public class ProductController extends EntityController<ProductService, ProductRepository, Product> {
+	
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -26,15 +28,41 @@ public class ProductController extends EntityController<ProductService, ProductR
 		product.setFinalPrice();
 		return service.addEntity(product);
 	}
-	/*
-	@GET
-	@Path("/shelves_{id}")
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Shelf> getShelves(@PathParam("id") long id) {
-		List<Long> shelves = service.getEntity(id).getShelfIds();
-		ShelfService  
-		
-		
+	public Product update(Product product) {
+		product.setFinalPrice();
+		return service.addEntity(product);
 	}
-	*/
+	
+	@GET
+	@Path("names")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> getProductNames() {
+		return service.getProductNames();
+	}
+	
+	@GET
+	@Path("discount")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Product> getProductsWithDiscount() {
+		return service.getProductsWithDiscount();
+	}
+	
+	@GET
+	@Path("discount/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Product> getProductsWithDiscount(@PathParam("value") int value) {
+		return service.getProductsWithDiscount(value);
+	}
+	
+	@GET
+	@Path("sales")
+	@Produces(MediaType.APPLICATION_JSON)
+	public double getProductSales() {
+		return service.getProductSales();
+	}
+	
 }

@@ -1,13 +1,16 @@
 package io.altar.LibraryMaven.repositories;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 
 import io.altar.LibraryMaven.models.Shelf;
 
-
 @ApplicationScoped
 public class ShelfRepository extends EntityRepository<Shelf> {
 
+	
+	
 	@Override
 	protected Class<Shelf> getEntityClass() {
 		return Shelf.class;
@@ -27,6 +30,21 @@ public class ShelfRepository extends EntityRepository<Shelf> {
 	protected String getEntitiesCount() {
 		return Shelf.GET_SHELF_COUNT;
 	}
-
+	
+	public List<Shelf> getEmpty() {
+		return entityManager.createNamedQuery("getEmpty", Shelf.class).getResultList();
+	}
+	
+	public void emptyShelf() {
+		entityManager.createNamedQuery("emptyAllShelves").getResultList();		
+	}
+	
+	public void emptyShelf(long id) {
+		entityManager.createNamedQuery("emptyShelfById").setParameter("id", id).getResultList();		
+	}
+	
+	public List<Shelf> getShelvesWithProduct(long id) {
+		return entityManager.createNamedQuery("getShelvesWithProduct", Shelf.class).setParameter("id", id).getResultList();
+	}
 	
 }
