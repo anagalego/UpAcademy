@@ -34,14 +34,7 @@ public class ProductController extends EntityController<ProductService, ProductR
 	@Produces(MediaType.APPLICATION_JSON)
 	public Product update(Product product) {
 		product.setFinalPrice();
-		return service.addEntity(product);
-	}
-	
-	@GET
-	@Path("names")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<String> getProductNames() {
-		return service.getProductNames();
+		return service.editEntity(product);
 	}
 	
 	@GET
@@ -56,13 +49,6 @@ public class ProductController extends EntityController<ProductService, ProductR
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Product> getProductsWithDiscount(@PathParam("value") int value) {
 		return service.getProductsWithDiscount(value);
-	}
-	
-	@GET
-	@Path("sales")
-	@Produces(MediaType.APPLICATION_JSON)
-	public double getProductSales() {
-		return service.getProductSales();
-	}
+	}	
 	
 }

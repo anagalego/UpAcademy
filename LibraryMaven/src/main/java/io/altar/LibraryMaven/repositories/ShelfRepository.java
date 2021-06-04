@@ -31,6 +31,21 @@ public class ShelfRepository extends EntityRepository<Shelf> {
 		return Shelf.GET_SHELF_COUNT;
 	}
 	
+	@Override
+	protected String getNamesOfEntity() {
+		return Shelf.GET_SHELF_NAMES;
+	}
+	
+	@Override
+	protected String getGetTotalSalesOfEntity() {
+		return Shelf.GET_SHELF_SALES;
+	}
+	
+	@Override
+	protected String getAveragePriceOfEntity() {
+		return Shelf.GET_SHELF_AVERAGE_PRICE;
+	}
+	
 	public List<Shelf> getEmpty() {
 		return entityManager.createNamedQuery("getEmpty", Shelf.class).getResultList();
 	}

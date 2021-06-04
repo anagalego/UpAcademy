@@ -12,6 +12,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.apache.commons.math3.util.Precision;
 
 import io.altar.LibraryMaven.models.Entity_;
 import io.altar.LibraryMaven.repositories.EntityRepository;
@@ -28,6 +31,21 @@ public abstract class EntityController<S extends EntityService<R,E>, R extends E
 	public E addEntity(E entity) {
 		return service.addEntity(entity);
 	}
+	
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response addEntityWithResponse(E entity) {
+//		String message = service.validateEntity(entity);
+//		if(message == "OK") {
+//			service.addEntity(entity);
+//			message = entity.getClass().getSimpleName() + " adicionado/a com sucesso.";
+//		}
+//	    return Response
+//	      .status(Response.Status.OK)
+//	      .entity(message)
+//	      .build();
+//	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -70,10 +88,32 @@ public abstract class EntityController<S extends EntityService<R,E>, R extends E
 	}
 	
 	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
 	public String clear() {
 		String removed = service.getAllIds().toString();
 		service.clear();
 		return "Id/s " + removed + " removidos com sucesso.";
 	}
+	
+	@GET
+	@Path("names")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> getNames() {
+		return service.getNames();
+	}
+	
+	@GET
+	@Path("sales")
+	@Produces(MediaType.APPLICATION_JSON)
+	public double getTotalSales() {
+		return Precision.round(service.getTotalSales(), 3);
+	}
+	
+	@GET
+	@Path("averagePrice")
+	@Produces(MediaType.APPLICATION_JSON)
+	public double getAveragePrice() {
+		return Precision.round(service.getAveragePrice(), 3);
+	}
+	
+	
 }

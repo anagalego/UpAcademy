@@ -9,8 +9,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.math3.util.Precision;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @NamedQueries({ 
@@ -18,10 +19,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 	@NamedQuery(name = Product.GET_PRODUCTS_IDS, query = "SELECT p.id FROM Product p"),	
 	@NamedQuery(name = Product.GET_PRODUCT_COUNT, query = "SELECT COUNT(p.id) FROM Product p"),
 	@NamedQuery(name = Product.GET_PRODUCT_BY_ID, query = "SELECT p FROM Product p WHERE p.id = :id"),
-	@NamedQuery(name = Product.GET_PRODUCT_NAMES, query = "SELECT DISTINCT p.name FROM Product p"),
 	@NamedQuery(name = Product.GET_PRODUCTS_WITH_DISCOUNT, query = "SELECT p FROM Product p WHERE p.discount > 0"),
 	@NamedQuery(name = Product.GET_PRODUCTS_WITH_DISCOUNT_X, query = "SELECT p FROM Product p WHERE p.discount = :value" ),
-	@NamedQuery(name = Product.GET_PRODUCT_SALES, query = "SELECT SUM(p.price) FROM Product p"),
+	@NamedQuery(name = Product.GET_PRODUCT_NAMES, query = "SELECT DISTINCT p.name FROM Product p"),
+	@NamedQuery(name = Product.GET_PRODUCT_SALES, query = "SELECT SUM(p.finalPrice) FROM Product p"),
+	@NamedQuery(name = Product.GET_PRODUCT_AVERAGE_PRICE, query = "SELECT AVG(p.finalPrice) FROM Product p"),
 
 })
 public class Product extends Entity_ {
@@ -31,10 +33,12 @@ public class Product extends Entity_ {
 	public static final String GET_PRODUCTS_IDS = "getAllProductsIds";
 	public static final String GET_PRODUCT_COUNT = "getProductCount";
 	public static final String GET_PRODUCT_BY_ID = "getProductById";
-	public static final String GET_PRODUCT_NAMES = "getProductNames";
 	public static final String GET_PRODUCTS_WITH_DISCOUNT = "getProductsWithDiscount";
 	public static final String GET_PRODUCTS_WITH_DISCOUNT_X = "getProductsWithDiscountX";
+	public static final String GET_PRODUCT_NAMES = "getProductNames";
 	public static final String GET_PRODUCT_SALES = "getProductSales";
+	public static final String GET_PRODUCT_AVERAGE_PRICE = "getProductAveragePrice";
+
 
 	
 
@@ -46,7 +50,7 @@ public class Product extends Entity_ {
 	private List<Shelf> shelves;
 	private int tax;
 	private int discount;
-	private float finalPrice;
+	private double finalPrice;
 	
 	public Product() {}
 	 
@@ -72,13 +76,14 @@ public class Product extends Entity_ {
 		this.discount = discount;
 	}
 	
-	public float getFinalPrice() {
+	public double getFinalPrice() {
 		return finalPrice;
 	}
 	
 	public void setFinalPrice() {
-		this.finalPrice = (tax*getPrice()/100+getPrice())
+		double price = (tax*getPrice()/100+getPrice())
 				-(tax*getPrice()/100+getPrice())*discount/100;
+		this.finalPrice = Precision.round(price, 2);
 	}
 
 	

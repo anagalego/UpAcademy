@@ -17,6 +17,9 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = Shelf.GET_SHELVES_WITH_PRODUCT, query = "SELECT s FROM Shelf s WHERE s.product.id = :id"),
 	@NamedQuery(name = Shelf.EMPTY_SHELF_BY_ID, query = "UPDATE Shelf s SET s.product = null WHERE s.id = :id"),
 	@NamedQuery(name = Shelf.EMPTY_ALL_SHELVES, query = "UPDATE Shelf s SET s.product = null"),
+	@NamedQuery(name = Shelf.GET_SHELF_NAMES, query = "SELECT DISTINCT s.name FROM Shelf s"),
+	@NamedQuery(name = Shelf.GET_SHELF_SALES, query = "SELECT SUM(s.price) FROM Shelf s"),
+	@NamedQuery(name = Shelf.GET_SHELF_AVERAGE_PRICE, query = "SELECT AVG(s.price) FROM Shelf s"),
 
 })
 public class Shelf extends Entity_ {	
@@ -29,7 +32,9 @@ public class Shelf extends Entity_ {
 	public static final String GET_SHELVES_WITH_PRODUCT = "getShelvesWithProduct";
 	public static final String EMPTY_SHELF_BY_ID = "emptyShelfById";
 	public static final String EMPTY_ALL_SHELVES = "emptyAllShelves";
-	
+	public static final String GET_SHELF_NAMES = "getShelfNames";
+	public static final String GET_SHELF_SALES = "getShelfSales";	
+	public static final String GET_SHELF_AVERAGE_PRICE = "getAveragePrice";	
 
 
 

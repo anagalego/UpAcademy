@@ -33,10 +33,22 @@ public class ProductRepository extends EntityRepository<Product> {
 		return Product.GET_PRODUCT_COUNT;
 	}
 	
-	public List<String> getProductNames() {
-		return entityManager.createNamedQuery("getProductNames", String.class).getResultList();
+	@Override
+	protected String getNamesOfEntity() {
+		return Product.GET_PRODUCT_NAMES;
 	}
-		
+	
+	@Override
+	protected String getGetTotalSalesOfEntity() {
+		return Product.GET_PRODUCT_SALES;
+	}
+	
+	@Override
+	protected String getAveragePriceOfEntity() {
+		return Product.GET_PRODUCT_AVERAGE_PRICE;
+	}
+	
+	
 	public List<Product> getProductsWithDiscount() {
 		return entityManager.createNamedQuery("getProductsWithDiscount", Product.class).getResultList();
 	}
@@ -45,7 +57,4 @@ public class ProductRepository extends EntityRepository<Product> {
 		return entityManager.createNamedQuery("getProductsWithDiscountX", Product.class).setParameter("value", value).getResultList();
 	}
 	
-	public double getProductSales() {
-		return entityManager.createNamedQuery("getProductSales", Double.class).getSingleResult();
-	}
 }

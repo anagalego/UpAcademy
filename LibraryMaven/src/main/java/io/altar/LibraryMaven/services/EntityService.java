@@ -17,6 +17,9 @@ public abstract class EntityService<T extends EntityRepository<E>, E extends Ent
 	public E addEntity(E entity) {
 		return repository.addEntity(entity);
 	}
+	
+	public abstract String validateEntity(E entity);
+	
 
 	public E getEntity(long id) {
 		return repository.getEntity(id);
@@ -58,5 +61,19 @@ public abstract class EntityService<T extends EntityRepository<E>, E extends Ent
 		}
 	}
 	
+	public List<String> getNames() {
+		return repository.getNames();
+	}
 	
+	public double getTotalSales() {
+		return repository.getTotalSales();
+	}
+		
+	public double getAveragePrice() {
+		return repository.getAveragePrice();
+	}
+	
+	
+	
+
 }

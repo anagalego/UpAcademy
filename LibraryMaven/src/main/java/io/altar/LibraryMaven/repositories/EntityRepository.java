@@ -13,6 +13,8 @@ public abstract class EntityRepository<T extends Entity_> {
 
 	@PersistenceContext(unitName = "database")
 	protected EntityManager entityManager;
+	
+	protected abstract Class<T> getEntityClass();
 
 	public T addEntity(T entity) {
 		return entityManager.merge(entity);
@@ -48,8 +50,20 @@ public abstract class EntityRepository<T extends Entity_> {
 	public long size() {
 		return entityManager.createNamedQuery(getEntitiesCount(), Long.class).getSingleResult();
 	}
-
-	protected abstract Class<T> getEntityClass();
 	
+	protected abstract String getNamesOfEntity();
+	public List<String> getNames() {
+		return entityManager.createNamedQuery(getNamesOfEntity(), String.class).getResultList();
+	}
+	
+	protected abstract String getGetTotalSalesOfEntity();
+	public double getTotalSales() {
+		return entityManager.createNamedQuery(getGetTotalSalesOfEntity(), Double.class).getSingleResult();
+	}
+	
+	protected abstract String getAveragePriceOfEntity();
+	public double getAveragePrice() {
+		return entityManager.createNamedQuery(getAveragePriceOfEntity(), Double.class).getSingleResult();
+	}
 	
 }
