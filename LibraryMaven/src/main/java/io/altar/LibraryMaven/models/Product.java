@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 	@NamedQuery(name = Product.GET_PRODUCT_AVERAGE_PRICE, query = "SELECT AVG(p.finalPrice) FROM Product p"),
 
 })
+
 public class Product extends Entity_ {
 
 
